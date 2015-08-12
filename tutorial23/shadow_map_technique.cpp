@@ -37,7 +37,9 @@ bool ShadowMapTechnique::Init()
     if (!AddShader(GL_FRAGMENT_SHADER, "shadow_map.fs")) {
         return false;
     }
-
+    BindAttribLocation(0, "Position");
+    BindAttribLocation(1, "TexCoord");
+    BindAttribLocation(2, "Normal");
     if (!Finalize()) {
         return false;
     }
