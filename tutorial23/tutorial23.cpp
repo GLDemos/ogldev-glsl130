@@ -87,7 +87,7 @@ public:
         
         m_pShadowMapTech->Enable();
        
-        m_pQuad = new Mesh();
+        m_pQuad = new Mesh();//the quad as background
         
         if (!m_pQuad->LoadMesh("../Content/quad.obj")) {
             return false;
@@ -111,7 +111,7 @@ public:
         ShadowMapPass();
         RenderPass();
         
-        glutSwapBuffers();
+        glutSwapBuffers();//post screen
     }
 
     virtual void ShadowMapPass()//draw to the m_shadowMapFBO
@@ -121,7 +121,7 @@ public:
         glClear(GL_DEPTH_BUFFER_BIT);
 
         Pipeline p;
-        p.Scale(0.1f, 0.1f, 0.1f);
+        p.Scale(0.1f, 0.1f, 0.1f);//notify that it is very small
         p.Rotate(0.0f, m_scale, 0.0f);
         p.WorldPos(0.0f, 0.0f, 5.0f);
         p.SetCamera(m_spotLight.Position, m_spotLight.Direction, Vector3f(0.0f, 1.0f, 0.0f));
@@ -129,15 +129,15 @@ public:
         m_pShadowMapTech->SetWVP(p.GetWVPTrans());
         m_pMesh->Render();
         
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);//reset to use the normal 
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);//reset to use the default framebuffer
     }
     
-    virtual void RenderPass()
+    virtual void RenderPass()//render to screen
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
       
-        m_pShadowMapTech->SetTextureUnit(0);
-        m_shadowMapFBO.BindForReading(GL_TEXTURE0);//bind for reading the framebuffer
+        m_pShadowMapTech->SetTextureUnit(0);//set the value to shaders
+        m_shadowMapFBO.BindForReading(GL_TEXTURE0);//the i in GL_TEXTUREi must be same with m_pShadowMapTech->SetTextureUnit(i);
 
         Pipeline p;
         p.Scale(5.0f, 5.0f, 5.0f);
@@ -145,27 +145,28 @@ public:
         p.SetCamera(m_pGameCamera->GetPos(), m_pGameCamera->GetTarget(), m_pGameCamera->GetUp());
         p.SetPerspectiveProj(m_persProjInfo);
         m_pShadowMapTech->SetWVP(p.GetWVPTrans());
+      
         m_pQuad->Render();       
     }
 
 
-	void KeyboardCB(OGLDEV_KEY OgldevKey)
-	{
-            switch (OgldevKey) {
-            case OGLDEV_KEY_ESCAPE:
-            case OGLDEV_KEY_q:
-                    GLUTBackendLeaveMainLoop();
-                    break;
-            default:
-                    m_pGameCamera->OnKeyboard(OgldevKey);
-            }
-	}
+    void KeyboardCB(OGLDEV_KEY OgldevKey)
+    {
+        switch (OgldevKey) {
+        case OGLDEV_KEY_ESCAPE:
+        case OGLDEV_KEY_q:
+            GLUTBackendLeaveMainLoop();
+            break;
+        default:
+            m_pGameCamera->OnKeyboard(OgldevKey);
+        }
+    }
 
 
-	virtual void PassiveMouseCB(int x, int y)
-	{
-            m_pGameCamera->OnMouse(x, y);
-	}
+    virtual void PassiveMouseCB(int x, int y)
+    {
+        m_pGameCamera->OnMouse(x, y);
+    }
 
  private:
 

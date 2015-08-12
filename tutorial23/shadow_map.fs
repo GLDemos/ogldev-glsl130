@@ -1,7 +1,7 @@
 #version 130                                                                        
                                                                                     
-in vec2 TexCoordOut;                                                                
-uniform sampler2D gShadowMap;                                                       
+in vec2 TexCoordOut;        //input                                                        
+uniform sampler2D gShadowMap;                                                 
                                                                                     
 out vec4 FragColor;                                                                 
                                                                                     

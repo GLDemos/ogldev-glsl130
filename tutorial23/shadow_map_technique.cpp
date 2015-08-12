@@ -62,5 +62,5 @@ void ShadowMapTechnique::SetWVP(const Matrix4f& WVP)
 
 void ShadowMapTechnique::SetTextureUnit(unsigned int TextureUnit)
 {
-    glUniform1i(m_textureLocation, TextureUnit);
+    glUniform1i(m_textureLocation, TextureUnit);//set variable m_textureLocation to TextureUnit
 }

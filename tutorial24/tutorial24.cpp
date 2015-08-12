@@ -114,7 +114,7 @@ public:
             return false;
         }
 
-		m_pGroundTex = new Texture(GL_TEXTURE_2D, "../Content/test.png");
+        m_pGroundTex = new Texture(GL_TEXTURE_2D, "../Content/test.png");
 
         if (!m_pGroundTex->Load()) {
             return false;
