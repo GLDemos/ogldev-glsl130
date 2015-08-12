@@ -29,11 +29,11 @@ ShadowMapFBO::ShadowMapFBO()
 ShadowMapFBO::~ShadowMapFBO()
 {
     if (m_fbo != 0) {
-        glDeleteFramebuffers(1, &m_fbo);
+        glDeleteFramebuffers(1, &m_fbo);//clear the memory of framebuffer
     }
 
     if (m_shadowMap != 0) {
-        glDeleteTextures(1, &m_shadowMap);
+        glDeleteTextures(1, &m_shadowMap);//clear the memory of texture
     }
 }
 
@@ -52,7 +52,7 @@ bool ShadowMapFBO::Init(unsigned int WindowWidth, unsigned int WindowHeight)
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
     glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
-    glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_shadowMap, 0);
+    glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, m_shadowMap, 0);//attach texture to framebuffer
 
     // Disable writes to the color buffer
     glDrawBuffer(GL_NONE);

@@ -89,13 +89,13 @@ public:
        
         m_pQuad = new Mesh();
         
-		if (!m_pQuad->LoadMesh("../Content/quad.obj")) {
+        if (!m_pQuad->LoadMesh("../Content/quad.obj")) {
             return false;
         }
-
+        
         m_pMesh = new Mesh();
-
-		return m_pMesh->LoadMesh("../Content/phoenix_ugv.md2");
+        
+	return m_pMesh->LoadMesh("../Content/phoenix_ugv.md2");
     }
 
     void Run()
@@ -114,7 +114,7 @@ public:
         glutSwapBuffers();
     }
 
-    virtual void ShadowMapPass()
+    virtual void ShadowMapPass()//draw to the m_shadowMapFBO
     {
         m_shadowMapFBO.BindForWriting();
 
@@ -129,7 +129,7 @@ public:
         m_pShadowMapTech->SetWVP(p.GetWVPTrans());
         m_pMesh->Render();
         
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);//reset to use the normal 
     }
     
     virtual void RenderPass()
@@ -137,7 +137,7 @@ public:
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
       
         m_pShadowMapTech->SetTextureUnit(0);
-        m_shadowMapFBO.BindForReading(GL_TEXTURE0);
+        m_shadowMapFBO.BindForReading(GL_TEXTURE0);//bind for reading the framebuffer
 
         Pipeline p;
         p.Scale(5.0f, 5.0f, 5.0f);
@@ -151,20 +151,20 @@ public:
 
 	void KeyboardCB(OGLDEV_KEY OgldevKey)
 	{
-		switch (OgldevKey) {
-		case OGLDEV_KEY_ESCAPE:
-		case OGLDEV_KEY_q:
-			GLUTBackendLeaveMainLoop();
-			break;
-		default:
-			m_pGameCamera->OnKeyboard(OgldevKey);
-		}
+            switch (OgldevKey) {
+            case OGLDEV_KEY_ESCAPE:
+            case OGLDEV_KEY_q:
+                    GLUTBackendLeaveMainLoop();
+                    break;
+            default:
+                    m_pGameCamera->OnKeyboard(OgldevKey);
+            }
 	}
 
 
 	virtual void PassiveMouseCB(int x, int y)
 	{
-		m_pGameCamera->OnMouse(x, y);
+            m_pGameCamera->OnMouse(x, y);
 	}
 
  private:

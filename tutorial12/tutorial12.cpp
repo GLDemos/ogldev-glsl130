@@ -151,7 +151,7 @@ static void CompileShaders()
 
     GLint Success = 0;
     GLchar ErrorLog[1024] = { 0 };
-
+    glBindAttribLocation(ShaderProgram, 0, "Position");
     glLinkProgram(ShaderProgram);
     glGetProgramiv(ShaderProgram, GL_LINK_STATUS, &Success);
 	if (Success == 0) {
