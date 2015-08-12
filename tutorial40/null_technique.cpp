@@ -39,7 +39,7 @@ bool NullTechnique::Init()
     if (!AddShader(GL_FRAGMENT_SHADER, "shaders/null_technique.fs")) {
         return false;
     }
-
+    BindAttribLocation(0, "Position");
     if (!Finalize()) {
         return false;
     }

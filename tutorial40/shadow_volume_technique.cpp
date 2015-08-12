@@ -46,7 +46,7 @@ bool ShadowVolumeTechnique::Init()
     if (!AddShader(GL_FRAGMENT_SHADER, "shaders/shadow_volume.fs")) {
         return false;
     }
-
+    
     if (!Finalize()) {
         return false;
     }

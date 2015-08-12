@@ -1,4 +1,4 @@
-#version 330
+#version 130
 
 layout (triangles_adjacency) in;    // six vertices in
 layout (triangle_strip, max_vertices = 18) out; // 4 per quad * 3 triangle vertices + 6 for near/far caps
