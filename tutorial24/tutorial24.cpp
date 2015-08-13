@@ -35,7 +35,14 @@
 #define WINDOW_WIDTH  1920
 #define WINDOW_HEIGHT 1200
 
-
+/*
+ *To read this tutorial , you need to know about 
+ * 1. how SpotLight works
+ * 2. how to set a Shader
+ * 3. how to get the depth path
+ * 4. how the projection works
+ * 5. how the renderer works
+ */
 class Tutorial24 : public ICallbacks, public OgldevApp
 {
 public:
@@ -50,7 +57,7 @@ public:
         m_scale = 0.0f;
         m_pGroundTex = NULL;
 
-        m_spotLight.AmbientIntensity = 0.1f;
+        m_spotLight.AmbientIntensity = 0.4f;
         m_spotLight.DiffuseIntensity = 0.9f;
         m_spotLight.Color = Vector3f(1.0f, 1.0f, 1.0f);
         m_spotLight.Attenuation.Linear = 0.01f;
@@ -186,7 +193,7 @@ public:
         m_pLightingEffect->SetWorldMatrix(p.GetWorldTrans());        
         p.SetCamera(m_spotLight.Position, m_spotLight.Direction, Vector3f(0.0f, 1.0f, 0.0f));
         m_pLightingEffect->SetLightWVP(p.GetWVPTrans());
-        m_pGroundTex->Bind(GL_TEXTURE0);
+        m_pGroundTex->Bind(GL_TEXTURE0);//bind the texture to the slot 0
         m_pQuad->Render();
  
         p.Scale(0.1f, 0.1f, 0.1f);
@@ -197,7 +204,7 @@ public:
         m_pLightingEffect->SetWorldMatrix(p.GetWorldTrans());
         p.SetCamera(m_spotLight.Position, m_spotLight.Direction, Vector3f(0.0f, 1.0f, 0.0f));
         m_pLightingEffect->SetLightWVP(p.GetWVPTrans());
-        m_pMesh->Render();        
+        m_pMesh->Render();//render to where?
     }
 
 

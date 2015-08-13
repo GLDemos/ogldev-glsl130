@@ -59,28 +59,28 @@ static void CreateVertexBuffer()
     Vertices[1] = Vector3f(1.0f, -1.0f, 0.0f);
     Vertices[2] = Vector3f(0.0f, 1.0f, 0.0f);
 
- 	glGenBuffers(1, &VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
 }
 
 static void AddShader(GLuint ShaderProgram, const char* pShaderText, GLenum ShaderType)
 {
-    GLuint ShaderObj = glCreateShader(ShaderType);
+    GLuint ShaderObj = glCreateShader(ShaderType);//create shader object type can be GL_VERTEX_SHADER or GL_FRAGMENT_SHADER
 
     if (ShaderObj == 0) {
         fprintf(stderr, "Error creating shader type %d\n", ShaderType);
         exit(0);
     }
 
-    const GLchar* p[1];
+    const GLchar* p[1];//GLchar is same with char
     p[0] = pShaderText;
-    GLint Lengths[1];
+    GLint Lengths[1];//GLint is int
     Lengths[0]= strlen(pShaderText);
-    glShaderSource(ShaderObj, 1, p, Lengths);
-    glCompileShader(ShaderObj);
+    glShaderSource(ShaderObj, 1, p, Lengths);//set shader string
+    glCompileShader(ShaderObj);//compile shader
     GLint success;
-    glGetShaderiv(ShaderObj, GL_COMPILE_STATUS, &success);
+    glGetShaderiv(ShaderObj, GL_COMPILE_STATUS, &success);//return compile result
     if (!success) {
         GLchar InfoLog[1024];
         glGetShaderInfoLog(ShaderObj, 1024, NULL, InfoLog);
@@ -93,7 +93,7 @@ static void AddShader(GLuint ShaderProgram, const char* pShaderText, GLenum Shad
 
 static void CompileShaders()
 {
-    GLuint ShaderProgram = glCreateProgram();
+    GLuint ShaderProgram = glCreateProgram();//create　shader program
 
     if (ShaderProgram == 0) {
         fprintf(stderr, "Error creating shader program\n");
@@ -115,24 +115,24 @@ static void CompileShaders()
 
     GLint Success = 0;
     GLchar ErrorLog[1024] = { 0 };
-    glBindAttribLocation(ShaderProgram, 0, "Position");
-    glLinkProgram(ShaderProgram);
-    glGetProgramiv(ShaderProgram, GL_LINK_STATUS, &Success);
+    glBindAttribLocation(ShaderProgram, 0, "Position");//set location of uniform
+    glLinkProgram(ShaderProgram);//link program
+    glGetProgramiv(ShaderProgram, GL_LINK_STATUS, &Success);//get link result
 	if (Success == 0) {
 		glGetProgramInfoLog(ShaderProgram, sizeof(ErrorLog), NULL, ErrorLog);
 		fprintf(stderr, "Error linking shader program: '%s'\n", ErrorLog);
                 exit(1);
 	}
 
-    glValidateProgram(ShaderProgram);
-    glGetProgramiv(ShaderProgram, GL_VALIDATE_STATUS, &Success);
+    glValidateProgram(ShaderProgram);//validate program
+    glGetProgramiv(ShaderProgram, GL_VALIDATE_STATUS, &Success);//get valid result
     if (!Success) {
         glGetProgramInfoLog(ShaderProgram, sizeof(ErrorLog), NULL, ErrorLog);
         fprintf(stderr, "Invalid shader program: '%s'\n", ErrorLog);
         exit(1);
     }
 
-    glUseProgram(ShaderProgram);
+    glUseProgram(ShaderProgram);//use the shader program in state machine
 }
 
 int main(int argc, char** argv)
@@ -146,7 +146,6 @@ int main(int argc, char** argv)
     InitializeGlutCallbacks();
 
     // Must be done after glut is initialized!
-    glewExperimental = GL_TRUE;
     GLenum res = glewInit();
     if (res != GLEW_OK) {
       fprintf(stderr, "Error: '%s'\n", glewGetErrorString(res));
@@ -157,7 +156,7 @@ int main(int argc, char** argv)
 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-    CreateVertexBuffer();
+    CreateVertexBuffer();//create vertex buffer
 
     CompileShaders();
 
