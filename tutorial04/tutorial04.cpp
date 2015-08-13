@@ -115,14 +115,14 @@ static void CompileShaders()
 
     GLint Success = 0;
     GLchar ErrorLog[1024] = { 0 };
-    glBindAttribLocation(ShaderProgram, 0, "Position");//set location of uniform
+    glBindAttribLocation(ShaderProgram, 0, "Position");//bind the attrib name "Position" with location 0
     glLinkProgram(ShaderProgram);//link program
     glGetProgramiv(ShaderProgram, GL_LINK_STATUS, &Success);//get link result
-	if (Success == 0) {
-		glGetProgramInfoLog(ShaderProgram, sizeof(ErrorLog), NULL, ErrorLog);
-		fprintf(stderr, "Error linking shader program: '%s'\n", ErrorLog);
-                exit(1);
-	}
+    if (Success == 0) {
+        glGetProgramInfoLog(ShaderProgram, sizeof(ErrorLog), NULL, ErrorLog);
+        fprintf(stderr, "Error linking shader program: '%s'\n", ErrorLog);
+        exit(1);
+    }
 
     glValidateProgram(ShaderProgram);//validate program
     glGetProgramiv(ShaderProgram, GL_VALIDATE_STATUS, &Success);//get valid result
@@ -131,8 +131,8 @@ static void CompileShaders()
         fprintf(stderr, "Invalid shader program: '%s'\n", ErrorLog);
         exit(1);
     }
-
-    glUseProgram(ShaderProgram);//use the shader program in state machine
+    
+    glUseProgram(ShaderProgram);//use the shader program in pipeline, to disable it, you should call glUseProgram(null)
 }
 
 int main(int argc, char** argv)

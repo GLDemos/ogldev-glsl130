@@ -40,9 +40,9 @@ static void RenderSceneCB()
 
     static float Scale = 0.0f;
 
-    Scale += 0.001f;
+    Scale += 0.01f;
 
-    glUniform1f(gScaleLocation, sinf(Scale));
+    glUniform1f(gScaleLocation, sinf(Scale));//set uniform value of scale
 
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -145,7 +145,7 @@ static void CompileShaders()
 
     glUseProgram(ShaderProgram);
 
-    gScaleLocation = glGetUniformLocation(ShaderProgram, "gScale");
+    gScaleLocation = glGetUniformLocation(ShaderProgram, "gScale");//get location of uniform value
     assert(gScaleLocation != 0xFFFFFFFF);
 }
 

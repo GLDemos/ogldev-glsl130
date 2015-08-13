@@ -2,6 +2,7 @@
 
 in vec3 Position;
 
+//a uniform value, will be set by glUnifrom1f
 uniform float gScale;
 
 void main()
