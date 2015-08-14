@@ -1,4 +1,4 @@
-#version 330                                                                        
+#version 130                                                                        
                                                                                     
 const int MAX_POINT_LIGHTS = 2;                                                     
                                                                                     
@@ -78,11 +78,11 @@ vec4 CalcPointLight(int Index, vec3 Normal)
     LightDirection = normalize(LightDirection);                                             
                                                                                             
     vec4 Color = CalcLightInternal(gPointLights[Index].Base, LightDirection, Normal);       
-    float Attenuation =  gPointLights[Index].Atten.Constant +                               
+    float atten =  gPointLights[Index].Atten.Constant +                               
                          gPointLights[Index].Atten.Linear * Distance +                      
                          gPointLights[Index].Atten.Exp * Distance * Distance;               
                                                                                             
-    return Color / Attenuation;                                                             
+    return Color / atten;                                                             
 }                                                                                           
                                                                                             
 void main()                                                                                 

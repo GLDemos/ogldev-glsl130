@@ -201,7 +201,9 @@ static void CompileShaders()
 
     AddShader(ShaderProgram, vs.c_str(), GL_VERTEX_SHADER);
     AddShader(ShaderProgram, fs.c_str(), GL_FRAGMENT_SHADER);
-
+    glBindAttribLocation(ShaderProgram, 0, "Position");
+    glBindAttribLocation(ShaderProgram, 1, "TexCoord");
+    glBindAttribLocation(ShaderProgram, 2, "Normal");
     GLint Success = 0;
     GLchar ErrorLog[1024] = { 0 };
 

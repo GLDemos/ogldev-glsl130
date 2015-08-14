@@ -40,7 +40,9 @@ bool LightingTechnique::Init()
     if (!Finalize()) {
         return false;
     }
-
+    BindAttribLocation(0, "Position");
+    BindAttribLocation(1, "TexCoord");
+    BindAttribLocation(2, "Normal");
     m_WVPLocation = GetUniformLocation("gWVP");
     m_samplerLocation = GetUniformLocation("gSampler");
     m_dirLightColorLocation = GetUniformLocation("gDirectionalLight.Color");

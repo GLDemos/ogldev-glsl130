@@ -40,6 +40,9 @@ bool LightingTechnique::Init()
     if (!AddShader(GL_FRAGMENT_SHADER, "lighting.fs")) {
         return false;
     }
+    BindAttribLocation(0, "Position");
+    BindAttribLocation(1, "TexCoord");
+    BindAttribLocation(2, "Normal");
 
     if (!Finalize()) {
         return false;
