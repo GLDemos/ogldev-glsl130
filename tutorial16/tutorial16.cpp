@@ -209,11 +209,11 @@ static void CompileShaders()
 
     glLinkProgram(ShaderProgram);
     glGetProgramiv(ShaderProgram, GL_LINK_STATUS, &Success);
-	if (Success == 0) {
-		glGetProgramInfoLog(ShaderProgram, sizeof(ErrorLog), NULL, ErrorLog);
-		fprintf(stderr, "Error linking shader program: '%s'\n", ErrorLog);
+    if (Success == 0) {
+        glGetProgramInfoLog(ShaderProgram, sizeof(ErrorLog), NULL, ErrorLog);
+        fprintf(stderr, "Error linking shader program: '%s'\n", ErrorLog);
         exit(1);
-	}
+    }
 
     glValidateProgram(ShaderProgram);
     glGetProgramiv(ShaderProgram, GL_VALIDATE_STATUS, &Success);
@@ -227,7 +227,7 @@ static void CompileShaders()
 
     gWVPLocation = glGetUniformLocation(ShaderProgram, "gWVP");
     assert(gWVPLocation != 0xFFFFFFFF);
-    gSampler = glGetUniformLocation(ShaderProgram, "gSampler");
+    gSampler = glGetUniformLocation(ShaderProgram, "gSampler");//get uniform location
     assert(gSampler != 0xFFFFFFFF);
 }
 
@@ -264,9 +264,9 @@ int main(int argc, char** argv)
 
     CompileShaders();
 
-    glUniform1i(gSampler, 0);
+    glUniform1i(gSampler, 0);//set gSampler to value 0 ? 
 
-    pTexture = new Texture(GL_TEXTURE_2D, "../Content/test.png");
+    pTexture = new Texture(GL_TEXTURE_2D, "../Content/test.png");//define a Texture
 
     if (!pTexture->Load()) {
         return 1;

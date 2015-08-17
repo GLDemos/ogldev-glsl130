@@ -88,9 +88,9 @@ static void CreateVertexBuffer()
     Vertices[2] = Vector3f(1.0f, -1.0f, 0.5773f);
     Vertices[3] = Vector3f(0.0f, 1.0f, 0.0f);
 
- 	glGenBuffers(1, &VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
 }
 
 static void CreateIndexBuffer()
@@ -153,7 +153,7 @@ static void CompileShaders()
 
     AddShader(ShaderProgram, vs.c_str(), GL_VERTEX_SHADER);
     AddShader(ShaderProgram, fs.c_str(), GL_FRAGMENT_SHADER);
-
+    glBindAttribLocation(ShaderProgram, 0, "Position");
     GLint Success = 0;
     GLchar ErrorLog[1024] = { 0 };
 
