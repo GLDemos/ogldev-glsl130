@@ -22,7 +22,7 @@
 #include "technique.h"
 #include "ogldev_math_3d.h"
 
-struct DirectionalLight
+struct DirectionalLight//must be the same as defined in lighting.fs
 {
     Vector3f Color;
     float AmbientIntensity;

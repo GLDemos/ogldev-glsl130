@@ -10,7 +10,7 @@ struct DirectionalLight
     float AmbientIntensity;
 };
 
-uniform DirectionalLight gDirectionalLight;
+uniform DirectionalLight gDirectionalLight;//this is set by
 uniform sampler2D gSampler;
 
 void main()

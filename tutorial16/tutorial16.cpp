@@ -76,15 +76,15 @@ static void RenderSceneCB()
     p.SetCamera(*pGameCamera);
     p.SetPerspectiveProj(gPersProjInfo);
 
-    glUniformMatrix4fv(gWVPLocation, 1, GL_TRUE, (const GLfloat*)p.GetWVPTrans());
+    glUniformMatrix4fv(gWVPLocation, 1, GL_TRUE, (const GLfloat*)p.GetWVPTrans());//set uniform to a matrix value
 
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(0);//as POSITION  0
+    glEnableVertexAttribArray(1);//as TexCoord 2
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)12);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
-    pTexture->Bind(GL_TEXTURE0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), 0);//how to use the pointers 0 depending on the VBO
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const GLvoid*)12);//how to use texture 1, depending on the VBO, why 12?
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);//bind before use the buffer
+    pTexture->Bind(GL_TEXTURE1);//bind texture
     glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
 
     glDisableVertexAttribArray(0);
@@ -133,9 +133,9 @@ static void CreateVertexBuffer()
                            Vertex(Vector3f(1.0f, -1.0f, 0.5773f),  Vector2f(1.0f, 0.0f)),
                            Vertex(Vector3f(0.0f, 1.0f, 0.0f),      Vector2f(0.5f, 1.0f)) };
     
- 	glGenBuffers(1, &VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
+    glGenBuffers(1, &VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
 }
 
 
@@ -146,7 +146,7 @@ static void CreateIndexBuffer()
                                2, 3, 0,
                                0, 1, 2 };
 
-    glGenBuffers(1, &IBO);
+    glGenBuffers(1, &IBO);//gen index buffer
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices, GL_STATIC_DRAW);
 }
@@ -203,7 +203,6 @@ static void CompileShaders()
     AddShader(ShaderProgram, fs.c_str(), GL_FRAGMENT_SHADER);
     glBindAttribLocation(ShaderProgram, 0, "Position");
     glBindAttribLocation(ShaderProgram, 1, "TexCoord");
-    glBindAttribLocation(ShaderProgram, 2, "Normal");
     GLint Success = 0;
     GLchar ErrorLog[1024] = { 0 };
 
@@ -255,7 +254,7 @@ int main(int argc, char** argv)
     }
 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-    glFrontFace(GL_CW);
+    glFrontFace(GL_CW);//front face as clockwise
     glCullFace(GL_BACK);
     glEnable(GL_CULL_FACE);
 
@@ -264,7 +263,7 @@ int main(int argc, char** argv)
 
     CompileShaders();
 
-    glUniform1i(gSampler, 0);//set gSampler to value 0 ? 
+    glUniform1i(gSampler, 1);//it is corresponding to  means TEXTURE_UNIT0 ?
 
     pTexture = new Texture(GL_TEXTURE_2D, "../Content/test.png");//define a Texture
 

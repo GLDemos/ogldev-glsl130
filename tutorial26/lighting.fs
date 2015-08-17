@@ -1,4 +1,4 @@
-#version 330                                                                        
+#version 130                                                                        
                                                                                     
 const int MAX_POINT_LIGHTS = 2;                                                     
 const int MAX_SPOT_LIGHTS = 2;                                                      
@@ -107,11 +107,11 @@ vec4 CalcPointLight(PointLight l, vec3 Normal, vec4 LightSpacePos)
     float ShadowFactor = CalcShadowFactor(LightSpacePos);                                   
                                                                                             
     vec4 Color = CalcLightInternal(l.Base, LightDirection, Normal, ShadowFactor);           
-    float Attenuation =  l.Atten.Constant +                                                 
+    float atten =  l.Atten.Constant +                                                 
                          l.Atten.Linear * Distance +                                        
                          l.Atten.Exp * Distance * Distance;                                 
                                                                                             
-    return Color / Attenuation;                                                             
+    return Color / atten;                                                             
 }                                                                                           
                                                                                             
 vec4 CalcSpotLight(SpotLight l, vec3 Normal, vec4 LightSpacePos)                            
