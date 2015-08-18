@@ -1,16 +1,16 @@
 #version 130
 
 in vec2 TexCoord0;
-in vec3 Normal0;                                                                    
+in vec3 Normal0;//this time will use Normal                                                         
                                                                                     
 out vec4 FragColor;                                                                 
                                                                                     
 struct DirectionalLight                                                             
 {                                                                                   
-    vec3 Color;                                                                     
-    float AmbientIntensity;                                                         
+    vec3 Color;                                         
+    float AmbientIntensity;
     float DiffuseIntensity;                                                         
-    vec3 Direction;                                                                 
+    vec3 Direction;                                                         
 };                                                                                  
                                                                                     
 uniform DirectionalLight gDirectionalLight;                                         
