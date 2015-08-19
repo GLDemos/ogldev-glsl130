@@ -81,8 +81,8 @@ public:
 
     bool Init()
     {
-        Vector3f Pos(0.0f, 0.0f, -3.0f);
-        Vector3f Target(0.0f, 0.0f, 1.0f);
+        Vector3f Pos(0.0f, 0.0f, -3.0f);//caomera pos
+        Vector3f Target(0.0f, 0.0f, 1.0f);//look at this
         Vector3f Up(0.0, 1.0f, 0.0f);
         m_pGameCamera = new Camera(WINDOW_WIDTH, WINDOW_HEIGHT, Pos, Target, Up);
 

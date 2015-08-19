@@ -29,7 +29,7 @@ void main()
     float DiffuseFactor = dot(Normal, LightDirection);                              
                                                                                     
     vec4 DiffuseColor  = vec4(0, 0, 0, 0);                                          
-    vec4 SpecularColor = vec4(0, 0, 0, 0);                                          
+    vec4 SpecularColor = vec4(0, 0, 0, 0);                               
                                                                                     
     if (DiffuseFactor > 0) {                                                        
         DiffuseColor = vec4(gDirectionalLight.Color * gDirectionalLight.DiffuseIntensity * DiffuseFactor, 1.0f);

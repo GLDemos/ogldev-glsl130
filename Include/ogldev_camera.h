@@ -36,17 +36,17 @@ public:
 
     void OnRender();
 
-    const Vector3f& GetPos() const
+    const Vector3f& GetPos() const//camera position
     {
         return m_pos;
     }
 
-    const Vector3f& GetTarget() const
+    const Vector3f& GetTarget() const//look at
     {
         return m_target;
     }
 
-    const Vector3f& GetUp() const
+    const Vector3f& GetUp() const//camera up
     {
         return m_up;
     }
