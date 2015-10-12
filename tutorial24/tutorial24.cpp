@@ -86,9 +86,9 @@ public:
     
     bool Init()
     {
-        Vector3f Pos(3.0f, 8.0f, -10.0f);
-        Vector3f Target(0.0f, -0.2f, 1.0f);
-        Vector3f Up(0.0, 1.0f, 0.0f);
+        Vector3f Pos(3.0f, 8.0f, -10.0f);//Camera position
+        Vector3f Target(0.0f, -0.2f, 1.0f);//Camera Target
+        Vector3f Up(0.0, 1.0f, 0.0f);//Camera up
 
         if (!m_shadowMapFBO.Init(WINDOW_WIDTH, WINDOW_HEIGHT)) {
             return false;
@@ -96,7 +96,7 @@ public:
 
         m_pGameCamera = new Camera(WINDOW_WIDTH, WINDOW_HEIGHT, Pos, Target, Up);
      
-        m_pLightingEffect = new LightingTechnique();
+        m_pLightingEffect = new LightingTechnique();//a technique is a wrap of the ShaderProgram
 
         if (!m_pLightingEffect->Init()) {
             printf("Error initializing the lighting technique\n");
@@ -159,12 +159,12 @@ public:
 
         m_pShadowMapEffect->Enable();
 
-        Pipeline p;
+        Pipeline p;//the Pipeline controls the transformations
         p.Scale(0.1f, 0.1f, 0.1f);
         p.Rotate(0.0f, m_scale, 0.0f);
         p.WorldPos(0.0f, 0.0f, 3.0f);
         p.SetCamera(m_spotLight.Position, m_spotLight.Direction, Vector3f(0.0f, 1.0f, 0.0f));
-        p.SetPerspectiveProj(m_persProjInfo);
+        p.SetPerspectiveProj(m_persProjInfo);//spotlight is just like the camera
         m_pShadowMapEffect->SetWVP(p.GetWVPTrans());
         m_pMesh->Render();
         
@@ -197,14 +197,14 @@ public:
         m_pQuad->Render();
  
         p.Scale(0.1f, 0.1f, 0.1f);
-        p.Rotate(0.0f, m_scale, 0.0f);
+        p.Rotate(0.0f, m_scale, 0.0f); 
         p.WorldPos(0.0f, 0.0f, 3.0f);
         p.SetCamera(m_pGameCamera->GetPos(), m_pGameCamera->GetTarget(), m_pGameCamera->GetUp());
         m_pLightingEffect->SetWVP(p.GetWVPTrans());
         m_pLightingEffect->SetWorldMatrix(p.GetWorldTrans());
         p.SetCamera(m_spotLight.Position, m_spotLight.Direction, Vector3f(0.0f, 1.0f, 0.0f));
         m_pLightingEffect->SetLightWVP(p.GetWVPTrans());
-        m_pMesh->Render();//render to where?
+        m_pMesh->Render();//render to the current framebuffer
     }
 
 
